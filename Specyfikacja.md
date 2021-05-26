@@ -161,6 +161,10 @@ W systemie będzie można zobaczyć aktualne notowania poszczególnych kryptowal
 | **Rola** | Wszyscy |
 | **Opis** | Użytkownik ma dostęp do materiałów edukacyjnych dotyczących obrotu aktywami oraz inwestowaniem |
 
+### Model funkcyjny
+
+![](images/Model_funkcyjny.png)
+
 # 4. Wymagania niefunkcjonalne
 ***
 | **Nazwa** | Podział odpowiedzialności systemów |
@@ -198,9 +202,6 @@ W systemie będzie można zobaczyć aktualne notowania poszczególnych kryptowal
 | **Priorytet** | Wysoki |
 | **Opis** | Odświeżanie danych o aktualnym kursie kryptowalut co jedną minutę |
 
-### Model funkcyjny
-
-![](images/Modl_funkcyjny.png)
 
 ***
 # 5. Model systemu
