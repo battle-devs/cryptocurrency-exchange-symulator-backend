@@ -200,7 +200,10 @@ W systemie będzie można zobaczyć aktualne notowania poszczególnych kryptowal
 ***
 # 5. Model systemu
 ***
+![](images/Schemat_projektu.png)
 # 6. Schemat bazy danych(?)
 ***
+![](images/Schemat_bazy.png)
 # 7. Wersje
 ***
+![](images/Wersje.png)
