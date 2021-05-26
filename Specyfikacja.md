@@ -197,6 +197,11 @@ W systemie będzie można zobaczyć aktualne notowania poszczególnych kryptowal
 | --- | --- |
 | **Priorytet** | Wysoki |
 | **Opis** | Odświeżanie danych o aktualnym kursie kryptowalut co jedną minutę |
+
+### Model funkcyjny
+
+![](images/Modl_funkcyjny.png)
+
 ***
 # 5. Model systemu
 ***
