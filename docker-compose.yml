@@ -1,0 +1,18 @@
+version: '3'
+services:    
+  db:
+    container_name: 'postgres-crypto'
+    image: 'postgres:9.6.10'
+    restart: always
+    ports:
+      - 5555:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: crypto
+
+volumes:
+  postgres_data:
+    external: false
