@@ -1,10 +1,14 @@
 package main.entity;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import jakarta.validation.constraints.Email;
@@ -33,4 +37,8 @@ public class User {
 	@Column(name = "email", nullable = false)
 	@Email
 	private String email;
+
+	@OneToMany
+	@Column(name = "assets")
+	private List<Asset> asset;
 }
