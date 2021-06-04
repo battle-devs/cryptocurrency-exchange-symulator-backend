@@ -41,4 +41,8 @@ public class User {
 	@OneToMany
 	@Column(name = "assets")
 	private List<Asset> asset;
+
+	@OneToMany
+	@Column(name = "transactions")
+	private List<Transaction> transactions;
 }
