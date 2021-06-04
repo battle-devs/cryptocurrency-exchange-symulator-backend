@@ -23,6 +23,6 @@ public class Account {
 	private Long id;
 
 	@OneToOne
-	private AccountName name;
+	private User name;
 
 }

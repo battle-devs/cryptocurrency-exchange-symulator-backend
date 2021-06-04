@@ -7,26 +7,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import jakarta.validation.constraints.Email;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "Name")
+@Table(name = "Users")
 @Entity
 @NoArgsConstructor
 @Data
-public class AccountName {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "fullName")
-	private String fullName;
-	@Column(name = "firstName")
+	@Column(name = "firstName", nullable = false)
 	private String firstName;
-	@Column(name = "lastName")
+	@Column(name = "lastName", nullable = false)
 	private String lastName;
-	@Column(name = "nickName")
+	@Column(name = "nickName", nullable = false)
 	private String nickName;
+	@Column(name = "password", nullable = false)
+	private String password;
+	@Column(name = "email", nullable = false)
+	@Email
+	private String email;
 }
