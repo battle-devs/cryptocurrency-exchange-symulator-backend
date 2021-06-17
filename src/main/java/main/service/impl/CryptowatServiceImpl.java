@@ -1,13 +1,13 @@
-package main.services;
+package main.service.impl;
 
 import main.entity.fromAPI.Result;
+import main.service.CryptowatService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Map;
-
-public class CryptowatClient implements IRestClient{
-    Map<String,String> map;
+@Service
+public class CryptowatServiceImpl implements CryptowatService {
 
     @Override
     public Result getAssets(){
@@ -17,4 +17,4 @@ public class CryptowatClient implements IRestClient{
         return response.getBody();
     }
 }
-//
+

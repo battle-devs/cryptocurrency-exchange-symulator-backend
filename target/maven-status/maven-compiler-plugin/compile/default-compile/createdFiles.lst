@@ -1,0 +1,10 @@
+main\entity\fromAPI\Result.class
+main\services\CryptowatClient.class
+main\entity\Account.class
+main\security\SecurityConfig.class
+main\controller\CryptoController.class
+main\services\IRestClient.class
+main\entity\AccountName.class
+main\entity\fromAPI\APIAsset.class
+main\repository\AccountsRepository.class
+main\CryptoApp.class
