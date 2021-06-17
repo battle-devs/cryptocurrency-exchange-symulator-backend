@@ -5,28 +5,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "Name")
+@Table(name = "Assets")
 @Entity
 @NoArgsConstructor
 @Data
-public class AccountName {
+public class Asset {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "fullName")
-	private String fullName;
-	@Column(name = "firstName")
-	private String firstName;
-	@Column(name = "lastName")
-	private String lastName;
-	@Column(name = "nickName")
-	private String nickName;
+	@ManyToOne
+	private User name;
+
+	@OneToOne
+	private Currency currency;
+
 }
