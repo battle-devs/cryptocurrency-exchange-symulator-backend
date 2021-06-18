@@ -1,9 +1,5 @@
 package main.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +27,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(value = "/user", description = "Operations about users")
 public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -43,13 +37,11 @@ public class UserController {
     @Autowired
     public UserController(
             UserService userService,
-            AuthenticationManager authManager,
             JWTAuthenticationHelper jwtFilter) {
         this.userService = userService;
         this.jwtFilter = jwtFilter;
     }
 
-    @ApiOperation(value = "Register new user", response = User.class)
     @PostMapping(value = "/user", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public User registerUser(@RequestBody User user) throws DuplicateUsernameException {
@@ -59,18 +51,6 @@ public class UserController {
         return userService.addUser(user);
     }
 
-    @ApiOperation(value = "Get list of all users", response = User.class, responseContainer = "List")
-    @ApiResponses(
-            value = {
-                    @ApiResponse(code = 200, message = "Successfully retrieved list"),
-                    @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
-                    @ApiResponse(
-                            code = 403,
-                            message = "Accessing the resource you were trying to reach is forbidden"
-                    ),
-                    @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
-            }
-    )
     @GetMapping(value = "/users", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<User> getAllUsers() {
@@ -80,7 +60,6 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @ApiOperation(value = "Update user data", response = User.class)
     @PutMapping(value = "/user", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public User updateUser(@RequestBody User user) {
@@ -90,7 +69,6 @@ public class UserController {
         return userService.updateUser(user.getId(), user);
     }
 
-    @ApiOperation(value = "Change user password", response = User.class)
     @PutMapping(
             value = "/user/{userId}",
             consumes = "application/json",
@@ -105,7 +83,6 @@ public class UserController {
         return userService.changeUserPassword(userId, changeRequest.getNewPassword());
     }
 
-    @ApiOperation(value = "Disable user", response = User.class)
     @PutMapping(
             value = "/user/disableUser/{userId}",
             consumes = "application/json",
@@ -119,7 +96,6 @@ public class UserController {
         return userService.disableUser(userId);
     }
 
-    @ApiOperation(value = "Find user by id", response = User.class)
     @GetMapping(value = "/user/{userId}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public User getUser(@PathVariable long userId) {
