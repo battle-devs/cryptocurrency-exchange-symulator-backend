@@ -1,10 +1,10 @@
 package main.exception;
 
-public class DuplicateAccountException extends Exception {
+public class DuplicateUsernameException extends Exception {
 
     private static final long serialVersionUID = -6576779337906482877L;
 
-    public DuplicateAccountException(String message) {
+    public DuplicateUsernameException(String message) {
         super(message);
     }
 }
