@@ -1,9 +1,9 @@
 package main.services;
 
-import main.entity.fromAPI.APIAsset;
+import main.entity.fromAPI.Result;
 
-import java.util.List;
+import java.io.IOException;
 
 interface IRestClient {
-    List<APIAsset> getAssets();
+    Result getAssets() throws IOException;
 }
