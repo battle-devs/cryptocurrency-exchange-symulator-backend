@@ -10,6 +10,7 @@ import main.exception.DuplicateUsernameException;
 import main.configuration.AuthoritiesConstants;
 import main.repository.UserRepository;
 import main.service.UserService;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.hibernate.HibernateException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User addUser(User newUser) throws DuplicateUsernameException {
         Assert.notNull(newUser, "Dane nie mogą być puste");
-        if (userRepository.findByNickName(newUser.getNickName()) != null) {
+        if (userRepository.findByUserName(newUser.getUsername()) != null) {
             throw new DuplicateUsernameException(
-                    "Konto o takim adresie email już istnieje " + newUser.getNickName());
+                    "Konto o takiej nazwie już istnieje " + newUser.getUsername());
         }
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         if (newUser.getRole() == null) {
@@ -43,9 +44,9 @@ public class UserServiceImpl implements UserService {
         }
         try {
             userRepository.save(newUser);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new HibernateException(
-                    "Wystąpił problem z rejestracją użytkownika " + newUser.getNickName());
+                    "Wystąpił problem z rejestracją użytkownika " + newUser.getUsername());
         }
         return newUser;
     }
@@ -59,14 +60,14 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         } catch (HibernateException e) {
             throw new HibernateException(
-                    "Wystąpił problem z aktualizowaniem użytkownika " + newUser.getNickName());
+                    "Wystąpił problem z aktualizowaniem użytkownika " + newUser.getUsername());
         }
         return user;
     }
 
     private void updateUserData(User user, User newUser) {
-        if (newUser.getNickName() != null) {
-            user.setNickName(newUser.getNickName());
+        if (newUser.getUsername() != null) {
+            user.setUserName(newUser.getUsername());
         }
         if (newUser.getFirstName() != null) {
             user.setFirstName(newUser.getFirstName());
@@ -83,9 +84,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String nickName) {
-        Assert.notNull(nickName, "Nickname must not be null");
-        return userRepository.findByNickName(nickName);
+    public User findByUsername(String userName) {
+        Assert.notNull(userName, "Username must not be null");
+        return userRepository.findByUserName(userName);
     }
 
     @Override

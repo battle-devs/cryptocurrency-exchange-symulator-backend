@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class UserController {
@@ -37,6 +39,7 @@ public class UserController {
     @Autowired
     public UserController(
             UserService userService,
+            AuthenticationManager authManager,
             JWTAuthenticationHelper jwtFilter) {
         this.userService = userService;
         this.jwtFilter = jwtFilter;
@@ -102,11 +105,13 @@ public class UserController {
         return userService.findById(userId);
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/login",
+            consumes = "application/json",
+            produces = "application/json")
     public ResponseEntity<AuthenticationTransferObject> login(@RequestBody Credentials authUser) {
         User logedUser = userService.findByUsername(authUser.getUsername());
         if (logedUser == null) {
-            throw new BadCredentialsException("Bad credentials");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad credentials");
         }
         final Authentication authentication =
                 jwtFilter.attemptAuthentication(authUser, logedUser.getAuthorities());

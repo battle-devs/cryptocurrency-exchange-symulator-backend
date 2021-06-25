@@ -22,4 +22,5 @@ C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency
 C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency-exchange-symulator-backend\src\main\java\main\model\AuthenticationTransferObject.java
 C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency-exchange-symulator-backend\src\main\java\main\repository\UserRepository.java
 C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency-exchange-symulator-backend\src\main\java\main\configuration\JWTAuthorizationFilter.java
+C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency-exchange-symulator-backend\src\main\java\main\service\impl\CurrentUserDetailsService.java
 C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency-exchange-symulator-backend\src\main\java\main\entity\Transaction.java
