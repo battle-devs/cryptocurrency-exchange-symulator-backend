@@ -17,11 +17,13 @@ main\model\Credentials.class
 main\configuration\SwaggerConfiguration.class
 main\entity\Currency.class
 main\configuration\SecurityConstants.class
+main\model\Credentials$CredentialsBuilder.class
 main\entity\Asset.class
 main\exception\DuplicateUsernameException.class
 main\configuration\CorsConfig$1.class
 main\CryptoApp.class
 main\model\UserPasswordChangeRequest.class
 main\model\AuthenticationTransferObject.class
+main\model\UserPasswordChangeRequest$UserPasswordChangeRequestBuilder.class
 main\configuration\AuthoritiesConstants.class
 main\configuration\CorsConfig.class
