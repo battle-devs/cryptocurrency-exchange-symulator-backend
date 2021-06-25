@@ -25,16 +25,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class User implements UserDetails {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
-
+	@Column(name = "userName", nullable = false)
+	private String userName;
+	@Column(name = "user_password", nullable = false)
+	private String user_password;
 	@Column(name = "firstName", nullable = false)
 	private String firstName;
 	@Column(name = "lastName", nullable = false)
 	private String lastName;
-	@Column(name = "nickName", nullable = false)
-	private String nickName;
 	@Column(name = "password", nullable = false)
 	private String password;
 	@Column(name = "email", nullable = false)
@@ -61,7 +62,7 @@ public class User implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return nickName;
+		return userName;
 	}
 
 	@Override

@@ -1,3 +1,4 @@
+main\service\impl\CurrentUserDetailsService.class
 main\entity\fromAPI\Result.class
 main\controller\CryptoController.class
 main\entity\User.class
