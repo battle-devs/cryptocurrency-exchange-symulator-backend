@@ -3,6 +3,7 @@ package main.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import io.swagger.annotations.ApiOperation;
 import main.configuration.JWTAuthenticationHelper;
 import main.configuration.SecurityConstants;
 import main.entity.User;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,6 +47,7 @@ public class UserController {
 
     @PostMapping(value = "/user", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Dodawanie usera / Rejestracja")
     public User registerUser(@RequestBody User user) throws DuplicateUsernameException {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug(LocalDateTime.now() + " UserController: registerUser, " + user);
@@ -56,6 +57,7 @@ public class UserController {
 
     @GetMapping(value = "/users", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Pobieranie wszystkich użytkowników")
     public List<User> getAllUsers() {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug(LocalDateTime.now() + " UserController: getAllUsers");
@@ -65,6 +67,7 @@ public class UserController {
 
     @PutMapping(value = "/user", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Update usera z danym Id")
     public User updateUser(@RequestBody User user) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug(LocalDateTime.now() + " User controller: updateUser, " + user);
@@ -78,6 +81,7 @@ public class UserController {
             produces = "application/json"
     )
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Zmiana hasła użytkownika")
     public User changeUserPassword(@PathVariable long userId,
                                    @RequestBody UserPasswordChangeRequest changeRequest) {
         if (LOGGER.isDebugEnabled()) {
@@ -92,6 +96,7 @@ public class UserController {
             produces = "application/json"
     )
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Ustawianie flagi isEnable na false")
     public User disableUser(@PathVariable long userId) throws Exception {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug(LocalDateTime.now() + " User controller: changeUserPassword, " + userId);
@@ -101,6 +106,7 @@ public class UserController {
 
     @GetMapping(value = "/user/{userId}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Wyszukaj uzytkownika z danym Id")
     public User getUser(@PathVariable long userId) {
         return userService.findById(userId);
     }
