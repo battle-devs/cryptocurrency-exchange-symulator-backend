@@ -1,6 +1,7 @@
 package main.service.impl;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.Optional;
 
 import main.model.AssetList;
@@ -30,7 +31,7 @@ public class CryptowatServiceImpl implements CryptowatService {
 
     @Override
     public BigDecimal getPrice(String currency) {
-        String url = String.format("https://api.cryptowat.ch/markets/binance-us/%s/price", currency);
+        String url = String.format("https://api.cryptowat.ch/markets/bitbay/%s/price", currency);
         ResponseEntity<PriceRequestResult> response = restTemplate.getForEntity(url, PriceRequestResult.class);
         return Optional.ofNullable(response.getBody())
                 .map(PriceRequestResult::getResult)
