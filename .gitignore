@@ -2,6 +2,7 @@
 *.class
 *.idea
 *.iml
+*.lst
 
 # Log file
 *.log
