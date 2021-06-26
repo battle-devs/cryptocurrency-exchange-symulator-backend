@@ -1,5 +1,8 @@
 package main.service.impl;
 
+import java.math.BigDecimal;
+import java.util.Optional;
+
 import main.model.AssetList;
 import main.model.PriceRequest;
 import main.model.PriceRequestResult;
@@ -8,9 +11,6 @@ import main.service.CryptowatService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.math.BigDecimal;
-import java.util.Optional;
 
 @Service
 public class CryptowatServiceImpl implements CryptowatService {

@@ -1,31 +1,33 @@
 package main.controller;
 
-import lombok.AllArgsConstructor;
-import main.entity.CoinMarket.CoinLatestSummary;
-import main.entity.fromAPI.APIAsset;
-import main.services.CoinMarketCapClient;
-import main.services.CryptowatClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import java.math.BigDecimal;
 import java.util.List;
+
+import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
+
+import main.model.APIAsset;
+import main.model.PriceRequest;
+import main.service.CryptowatService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
 public class CryptoController {
-    private CryptowatClient cryptowatClient;
-    private CoinMarketCapClient coinMarketCapClient;
 
+    private CryptowatService cryptowatService;
 
     @GetMapping("/getAssets")
-    public List<APIAsset> getAssets(){
-        return cryptowatClient.getAssets().getResult();
+    public List<APIAsset> getAssets() {
+        return cryptowatService.getAssets().getResult();
     }
 
-    @GetMapping("/getTop100byVolume")
-    public List<CoinLatestSummary> getTop100byVolume() {
-        return coinMarketCapClient.getTop100byVolume().getData();
+    @GetMapping("/getPrice")
+    @ApiOperation("Pobiera kurs waluty")
+    public BigDecimal getPrice(@RequestBody PriceRequest priceRequest) {
+        return cryptowatService.getPrice(priceRequest);
     }
-
 
 }
