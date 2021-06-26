@@ -1,6 +1,7 @@
 package main.model;
 
 import lombok.Data;
+import main.model.APIAsset;
 
 import java.util.List;
 

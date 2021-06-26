@@ -20,7 +20,6 @@ public class CryptoController {
     private CryptowatService cryptowatService;
 
     @GetMapping("/getAssets")
-    @ApiOperation("Pobierz wszystkie assety")
     public List<APIAsset> getAssets() {
         return cryptowatService.getAssets().getResult();
     }
