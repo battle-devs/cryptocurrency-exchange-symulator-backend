@@ -7,10 +7,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 
 import main.model.APIAsset;
-import main.model.PriceRequest;
 import main.service.CryptowatService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,10 +23,10 @@ public class CryptoController {
         return cryptowatService.getAssets().getResult();
     }
 
-    @GetMapping("/getPrice")
+    @GetMapping("/getPrice/{currency}")
     @ApiOperation("Pobiera kurs waluty")
-    public BigDecimal getPrice(@RequestBody PriceRequest priceRequest) {
-        return cryptowatService.getPrice(priceRequest);
+    public BigDecimal getPrice(@PathVariable String currency) {
+        return cryptowatService.getPrice(currency);
     }
 
 }

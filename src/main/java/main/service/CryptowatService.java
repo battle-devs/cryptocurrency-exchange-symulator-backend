@@ -7,5 +7,5 @@ import main.model.PriceRequest;
 
 public interface CryptowatService {
     AssetList getAssets();
-    BigDecimal getPrice(PriceRequest priceRequest);
+    BigDecimal getPrice(String currency);
 }
