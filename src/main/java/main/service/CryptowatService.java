@@ -1,7 +1,11 @@
 package main.service;
 
-import main.entity.fromAPI.Result;
+import java.math.BigDecimal;
+
+import main.model.AssetList;
+import main.model.PriceRequest;
 
 public interface CryptowatService {
-    Result getAssets();
+    AssetList getAssets();
+    BigDecimal getPrice(PriceRequest priceRequest);
 }
