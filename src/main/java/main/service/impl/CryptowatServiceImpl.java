@@ -29,9 +29,8 @@ public class CryptowatServiceImpl implements CryptowatService {
     }
 
     @Override
-    public BigDecimal getPrice(PriceRequest priceRequest) {
-
-        String url = String.format("https://api.cryptowat.ch/markets/%s/%s/price", priceRequest.getExchangeSymbol(), priceRequest.getPairSymbol());
+    public BigDecimal getPrice(String currency) {
+        String url = String.format("https://api.cryptowat.ch/markets/binance-us/%s/price", currency);
         ResponseEntity<PriceRequestResult> response = restTemplate.getForEntity(url, PriceRequestResult.class);
         return Optional.ofNullable(response.getBody())
                 .map(PriceRequestResult::getResult)
