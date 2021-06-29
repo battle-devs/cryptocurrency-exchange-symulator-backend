@@ -1,8 +1,6 @@
-package main.model;
+package main.dto;
 
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class AuthenticationTransferObject {

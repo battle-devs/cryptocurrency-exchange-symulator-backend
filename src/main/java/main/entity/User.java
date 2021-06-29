@@ -3,6 +3,7 @@ package main.entity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,11 +43,11 @@ public class User implements UserDetails {
 	@Email
 	private String email;
 
-	@OneToMany
+	@OneToMany(cascade = {CascadeType.ALL})
 	@Column(name = "assets")
 	private List<Asset> asset;
 
-	@OneToMany
+	@OneToMany(cascade = {CascadeType.ALL})
 	@Column(name = "transactions")
 	private List<Transaction> transactions;
 
