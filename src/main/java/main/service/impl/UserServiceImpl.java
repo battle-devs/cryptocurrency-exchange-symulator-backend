@@ -1,16 +1,23 @@
 package main.service.impl;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
+import main.configuration.AuthoritiesConstants;
+import main.entity.Asset;
+import main.entity.Currency;
 import main.entity.User;
 import main.exception.DuplicateUsernameException;
-import main.configuration.AuthoritiesConstants;
+import main.repository.AssetRepository;
+import main.repository.CurrencyRepository;
 import main.repository.UserRepository;
 import main.service.UserService;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.hibernate.HibernateException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,8 +31,79 @@ import org.springframework.util.Assert;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final AssetRepository assetRepository;
+    private final CurrencyRepository currencyRepository;
     private final PasswordEncoder passwordEncoder;
 
+    public User addAsset(String userName, Currency currency, BigDecimal amount) {
+
+        if (currency.getId() == null) {
+            currencyRepository.save(currency);
+        } else {
+            if (currencyRepository.findById(currency.getId()).isEmpty()) {
+                currencyRepository.save(currency);
+            }
+        }
+
+        User user = userRepository.findByUserName(userName);
+
+        if (user.getAsset().size() == 0) {
+            Asset newAsset = new Asset();
+            newAsset.setAmount(amount);
+            newAsset.setCurrency(currency);
+            List<Asset> userAssets = new ArrayList<>();
+            userAssets.add(newAsset);
+            user.setAsset(userAssets);
+            return updateUser(user.getId(), user);
+        }
+
+        return Optional.ofNullable(user)
+                .map(User::getAsset)
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(Objects::nonNull)
+                .filter(ass -> ass.getCurrency().getName().equalsIgnoreCase(currency.getName()))
+                .findAny()
+                .map(ass -> updateUserAsset(ass, user, amount, currency))
+                .map(usr -> updateUser(usr.getId(), usr))
+                .orElseGet(() -> {
+                    Asset newAsset = new Asset();
+                    newAsset.setAmount(amount);
+                    newAsset.setCurrency(currency);
+                    List<Asset> userAssets = user.getAsset();
+                    userAssets.add(newAsset);
+                    user.setAsset(userAssets);
+                    return updateUser(user.getId(), user);
+                });
+
+    }
+
+    private User updateUserAsset(Asset ass, User user, BigDecimal amount, Currency currency) {
+        List<Asset> userAssets = user.getAsset();
+        Asset newAsset = new Asset();
+        return user.getAsset().stream()
+                .filter(asset -> asset.equals(ass))
+                .findAny()
+                .map(asset -> {
+                    asset.setAmount(asset.getAmount().add(amount));
+                    userAssets.remove(ass);
+                    userAssets.add(asset);
+                    user.setAsset(userAssets);
+                    return user;
+                })
+                .orElseGet(() -> {
+                    newAsset.setCurrency(currency);
+                    newAsset.setAmount(amount);
+                    userAssets.add(newAsset);
+                    user.setAsset(userAssets);
+                    return user;
+                });
+    }
+
+
+    public User substractAsset() {
+        return null;
+    }
 
     @Override
     public User addUser(User newUser) throws DuplicateUsernameException {

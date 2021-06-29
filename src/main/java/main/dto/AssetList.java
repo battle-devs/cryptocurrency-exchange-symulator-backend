@@ -1,7 +1,6 @@
-package main.model;
+package main.dto;
 
 import lombok.Data;
-import main.model.APIAsset;
 
 import java.util.List;
 

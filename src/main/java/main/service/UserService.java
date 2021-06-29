@@ -1,12 +1,15 @@
 package main.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import main.entity.Currency;
 import main.entity.User;
 import main.exception.DuplicateUsernameException;
 
 public interface UserService {
 
+    User addAsset(String userName, Currency currency, BigDecimal amount);
     User addUser(User newUser) throws DuplicateUsernameException;
 
     /**

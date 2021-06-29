@@ -1,16 +1,18 @@
 package main.controller;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import io.swagger.annotations.ApiOperation;
 import main.configuration.JWTAuthenticationHelper;
 import main.configuration.SecurityConstants;
+import main.entity.Currency;
 import main.entity.User;
 import main.exception.DuplicateUsernameException;
-import main.model.AuthenticationTransferObject;
-import main.model.Credentials;
-import main.model.UserPasswordChangeRequest;
+import main.dto.AuthenticationTransferObject;
+import main.dto.Credentials;
+import main.dto.UserPasswordChangeRequest;
 import main.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +46,17 @@ public class UserController {
         this.userService = userService;
         this.jwtFilter = jwtFilter;
     }
+
+    @PostMapping(value = "/addAsset/{userName}/{amount}", consumes = "application/json", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Dodawanie hajsu userowi")
+    public User addMoney(@PathVariable String userName, @PathVariable BigDecimal amount, @RequestBody Currency currency) {
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug(LocalDateTime.now() + " UserController: added " + amount + "  to, " + userName + " account");
+        }
+        return userService.addAsset(userName, currency, amount);
+}
 
     @PostMapping(value = "/user", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
@@ -136,4 +149,5 @@ public class UserController {
         authResponse.setRole(logedUser.getRole());
         return authResponse;
     }
+
 }

@@ -1,6 +1,7 @@
 package main.entity;
 
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,14 +21,14 @@ import lombok.NoArgsConstructor;
 public class Transaction {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	private Currency currencyOwned;
 
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	private Currency targetCurrency;
 
 	@Column(name = "timestamp")
