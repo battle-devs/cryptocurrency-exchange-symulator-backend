@@ -3,9 +3,11 @@ package main.service;
 import java.math.BigDecimal;
 import java.util.List;
 
+import main.entity.Asset;
 import main.entity.Currency;
 import main.entity.User;
 import main.exception.DuplicateUsernameException;
+import main.exception.InsufficientFundsException;
 
 public interface UserService {
 
@@ -49,4 +51,7 @@ public interface UserService {
     User disableUser(long userId) throws Exception;
 
     User resetUser(String userName);
+
+    User subUserAsset(Asset ass, User user, BigDecimal amount, Currency currency) throws InsufficientFundsException;
+    User substractFromAsset(String userName, Currency currency, BigDecimal amount) throws InsufficientFundsException;
 }

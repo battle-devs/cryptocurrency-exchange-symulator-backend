@@ -17,6 +17,7 @@ main\service\impl\CryptowatServiceImpl.class
 main\configuration\JWTAuthenticationHelper.class
 main\dto\APIAsset.class
 main\entity\Transaction.class
+main\exception\InsufficientFundsException.class
 main\configuration\SwaggerConfiguration.class
 main\entity\Currency.class
 main\configuration\SecurityConstants.class
