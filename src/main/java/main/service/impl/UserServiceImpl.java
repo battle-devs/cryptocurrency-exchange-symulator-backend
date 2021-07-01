@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import javax.naming.InsufficientResourcesException;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import main.configuration.AuthoritiesConstants;
@@ -16,6 +18,7 @@ import main.entity.Asset;
 import main.entity.Currency;
 import main.entity.User;
 import main.exception.DuplicateUsernameException;
+import main.exception.InsufficientFundsException;
 import main.repository.AssetRepository;
 import main.repository.CurrencyRepository;
 import main.repository.UserRepository;
@@ -41,7 +44,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUserName(userName);
 
         Optional.ofNullable(user)
-        .ifPresent(x -> x.setAsset(Collections.emptyList()));
+                .ifPresent(x -> x.setAsset(Collections.emptyList()));
 
         return user;
     }
@@ -75,7 +78,7 @@ public class UserServiceImpl implements UserService {
                 .filter(Objects::nonNull)
                 .filter(ass -> ass.getCurrency().getName().equalsIgnoreCase(currency.getName()))
                 .findAny()
-                .map(ass -> updateUserAsset(ass, user, amount, currency))
+                .map(ass -> addUserAsset(ass, user, amount, currency))
                 .map(usr -> updateUser(usr.getId(), usr))
                 .orElseGet(() -> {
                     Asset newAsset = new Asset();
@@ -89,7 +92,41 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    private User updateUserAsset(Asset ass, User user, BigDecimal amount, Currency currency) {
+    @Override
+    public User substractFromAsset(String userName, Currency currency, BigDecimal amount) {
+
+        User user = userRepository.findByUserName(userName);
+
+
+        return Optional.ofNullable(user)
+                .map(User::getAsset)
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(Objects::nonNull)
+                .filter(ass -> ass.getCurrency().getName().equalsIgnoreCase(currency.getName()))
+                .findAny()
+                .map(ass -> {
+                    try {
+                        return subUserAsset(ass, user, amount, currency);
+                    } catch (InsufficientFundsException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                })
+                .map(usr -> updateUser(usr.getId(), usr))
+                .orElseGet(() -> {
+                    Asset newAsset = new Asset();
+                    newAsset.setAmount(amount);
+                    newAsset.setCurrency(currency);
+                    List<Asset> userAssets = user.getAsset();
+                    userAssets.add(newAsset);
+                    user.setAsset(userAssets);
+                    return updateUser(user.getId(), user);
+                });
+
+    }
+
+    private User addUserAsset(Asset ass, User user, BigDecimal amount, Currency currency) {
         List<Asset> userAssets = user.getAsset();
         Asset newAsset = new Asset();
         return user.getAsset().stream()
@@ -112,9 +149,31 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public User substractAsset() {
-        return null;
+    @Override
+    public User subUserAsset(Asset ass, User user, BigDecimal amount, Currency currency) throws InsufficientFundsException {
+        List<Asset> userAssets = user.getAsset();
+
+        Asset a = user.getAsset().stream()
+                .filter(as -> as.equals(ass))
+                .findAny().orElse(new Asset());
+
+        if (a.getAmount().compareTo(amount) < 0) {
+            throw new InsufficientFundsException("There are no enough funds in your account " + user.getUsername());
+        }
+
+        return user.getAsset().stream()
+                .filter(asset -> asset.equals(ass))
+                .findAny()
+                .map(asset -> {
+                    asset.setAmount(asset.getAmount().subtract(amount));
+                    userAssets.remove(ass);
+                    userAssets.add(asset);
+                    user.setAsset(userAssets);
+                    return user;
+                })
+                .orElseThrow(() -> new IllegalArgumentException("User " + user.getUsername() + " doesnt own this currency: " + currency.getName()));
     }
+
 
     @Override
     public User addUser(User newUser) throws DuplicateUsernameException {

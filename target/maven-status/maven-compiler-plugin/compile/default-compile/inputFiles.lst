@@ -14,6 +14,7 @@ C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency
 C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency-exchange-symulator-backend\src\main\java\main\controller\CryptoController.java
 C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency-exchange-symulator-backend\src\main\java\main\configuration\SwaggerConfiguration.java
 C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency-exchange-symulator-backend\src\main\java\main\entity\Currency.java
+C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency-exchange-symulator-backend\src\main\java\main\exception\InsufficientFundsException.java
 C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency-exchange-symulator-backend\src\main\java\main\configuration\JWTAuthenticationHelper.java
 C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency-exchange-symulator-backend\src\main\java\main\dto\PriceRequestResult.java
 C:\Users\Przemysław Krzempek\Desktop\Ath\Projekt\Projekt-backend\cryptocurrency-exchange-symulator-backend\src\main\java\main\configuration\CorsConfig.java
