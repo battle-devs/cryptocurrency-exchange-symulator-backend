@@ -47,6 +47,18 @@ public class UserController {
         this.jwtFilter = jwtFilter;
     }
 
+    @PutMapping(value = "/reset/{userName}", consumes = "application/json", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Resetowanie środków użyszkodnika")
+    public User resetAssets(@PathVariable String userName) {
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug(LocalDateTime.now() + " UserController: user " + userName + " has been reset");
+        }
+
+        return userService.resetUser(userName);
+    }
+
     @PostMapping(value = "/addAsset/{userName}/{amount}", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Dodawanie hajsu userowi")
@@ -56,7 +68,7 @@ public class UserController {
             LOGGER.debug(LocalDateTime.now() + " UserController: added " + amount + "  to, " + userName + " account");
         }
         return userService.addAsset(userName, currency, amount);
-}
+    }
 
     @PostMapping(value = "/user", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)

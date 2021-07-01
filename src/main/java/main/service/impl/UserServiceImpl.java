@@ -3,6 +3,8 @@ package main.service.impl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -34,6 +36,15 @@ public class UserServiceImpl implements UserService {
     private final AssetRepository assetRepository;
     private final CurrencyRepository currencyRepository;
     private final PasswordEncoder passwordEncoder;
+
+    public User resetUser(String userName) {
+        User user = userRepository.findByUserName(userName);
+
+        Optional.ofNullable(user)
+        .ifPresent(x -> x.setAsset(Collections.emptyList()));
+
+        return user;
+    }
 
     public User addAsset(String userName, Currency currency, BigDecimal amount) {
 
@@ -120,6 +131,14 @@ public class UserServiceImpl implements UserService {
         } else {
             newUser.setRole(AuthoritiesConstants.USER);
         }
+        Asset startAsset = new Asset();
+        Currency startPln = new Currency();
+        startPln.setName("PLN");
+        startPln.setDateOfPurchase(new Date());
+        startAsset.setAmount(new BigDecimal(10000));
+        List<Asset> assets = new ArrayList<>();
+        assets.add(startAsset);
+        newUser.setAsset(assets);
         try {
             userRepository.save(newUser);
         } catch (Throwable e) {
