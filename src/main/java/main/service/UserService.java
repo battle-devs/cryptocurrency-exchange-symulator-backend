@@ -48,4 +48,5 @@ public interface UserService {
 
     User disableUser(long userId) throws Exception;
 
+    User resetUser(String userName);
 }
