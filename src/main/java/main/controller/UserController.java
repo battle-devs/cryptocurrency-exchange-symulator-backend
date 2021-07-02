@@ -62,7 +62,7 @@ public class UserController {
 
     @PostMapping(value = "/substractAsset/{userName}/{amount}", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation("Dodawanie hajsu userowi")
+    @ApiOperation("Odejmowanie hajsu userowi")
     public User subMoney(@PathVariable String userName, @PathVariable BigDecimal amount, @RequestBody Currency currency) throws InsufficientFundsException {
 
         if (LOGGER.isDebugEnabled()) {
