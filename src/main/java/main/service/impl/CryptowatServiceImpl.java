@@ -49,7 +49,7 @@ public class CryptowatServiceImpl implements CryptowatService {
 
     @Override
     public BigDecimal getPrice(String currency) {
-        String url = String.format("https://api.cryptowat.ch/markets/bitbay/%s/price", currency);
+        String url = String.format("https://api.cryptowat.ch/markets/bitbay/%s/price?apikey=O2MKZGC55J0ZFB0O7AXN", currency);
         ResponseEntity<PriceRequestResult> response = restTemplate.getForEntity(url, PriceRequestResult.class);
         return Optional.ofNullable(response.getBody())
                 .map(PriceRequestResult::getResult)
