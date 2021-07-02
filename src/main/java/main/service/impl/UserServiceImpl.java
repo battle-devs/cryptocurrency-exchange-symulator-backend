@@ -24,10 +24,12 @@ import main.repository.CurrencyRepository;
 import main.repository.UserRepository;
 import main.service.UserService;
 import org.hibernate.HibernateException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service("accountService")
 @Transactional
@@ -43,10 +45,18 @@ public class UserServiceImpl implements UserService {
     public User resetUser(String userName) {
         User user = userRepository.findByUserName(userName);
 
-        Optional.ofNullable(user)
-                .ifPresent(x -> x.setAsset(Collections.emptyList()));
-
-        return user;
+        return Optional.ofNullable(user)
+                .map(x -> {
+                    Asset startAsset = new Asset();
+                    Currency startPln = new Currency();
+                    startPln.setName("PLN");
+                    startPln.setDateOfPurchase(new Date());
+                    startAsset.setAmount(new BigDecimal(10000));
+                    List<Asset> assets = new ArrayList<>();
+                    assets.add(startAsset);
+                    x.setAsset(assets);
+                    return userRepository.save(x);
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "User " + userName + " does not exist"));
     }
 
     public User addAsset(String userName, Currency currency, BigDecimal amount) {

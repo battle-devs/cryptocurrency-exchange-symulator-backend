@@ -32,7 +32,7 @@ public class CryptoController {
 
 
     @GetMapping("/getPrices")
-    @ApiOperation("Pobiera kurs waluty")
+    @ApiOperation("Pobiera kurs wszystkich walut w kolejności od najmniejszego")
     public Map<String, BigDecimal> getPrice() {
         return cryptowatService.getCurrentPrices();
     }
