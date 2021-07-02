@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,6 +59,20 @@ public class UserController {
         }
 
         return userService.resetUser(userName);
+    }
+
+    @PutMapping(value = "/usdToPln/{userName}", consumes = "application/json", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Zmiana na PLN")
+    public User changeUsdToPln(@PathVariable String userName) {
+        return userService.usdToPln(userName);
+    }
+
+    @PutMapping(value = "/plnToUsd/{userName}", consumes = "application/json", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Zmiana na USD")
+    public User changePlnToUsd(@PathVariable String userName) {
+        return userService.plnToUsd(userName);
     }
 
     @PostMapping(value = "/substractAsset/{userName}/{amount}", consumes = "application/json", produces = "application/json")
@@ -110,6 +125,16 @@ public class UserController {
             LOGGER.debug(LocalDateTime.now() + " User controller: updateUser, " + user);
         }
         return userService.updateUser(user.getId(), user);
+    }
+
+    @DeleteMapping(value = "/removeUser/{userName}", consumes = "application/json", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Usuwanie konta")
+    public String removeUser(@PathVariable String userName) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug(LocalDateTime.now() + " User controller: removed, " + userName);
+        }
+        return userService.removeUser(userName);
     }
 
     @PutMapping(

@@ -3,7 +3,6 @@ package main.service;
 import java.math.BigDecimal;
 import java.util.List;
 
-import main.entity.Asset;
 import main.entity.Currency;
 import main.entity.User;
 import main.exception.DuplicateUsernameException;
@@ -12,12 +11,13 @@ import main.exception.InsufficientFundsException;
 public interface UserService {
 
     User addAsset(String userName, Currency currency, BigDecimal amount);
+
     User addUser(User newUser) throws DuplicateUsernameException;
 
     /**
      * This is method for updating user info
      *
-     * @param userId of user
+     * @param userId     of user
      * @param updateUser data for update
      * @return User after update
      */
@@ -53,4 +53,10 @@ public interface UserService {
     User resetUser(String userName);
 
     User substractFromAsset(String userName, Currency currency, BigDecimal amount) throws InsufficientFundsException;
+
+    String removeUser(String userName);
+
+    User plnToUsd(String userName);
+
+    User usdToPln(String userName);
 }
