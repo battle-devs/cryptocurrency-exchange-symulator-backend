@@ -42,6 +42,20 @@ public class UserServiceImpl implements UserService {
     private final CurrencyRepository currencyRepository;
     private final PasswordEncoder passwordEncoder;
 
+    public User plnToUsd(String userName, BigDecimal amount) {
+        User user = userRepository.findByUserName(userName);
+        double price = 3.83;
+
+        return null;
+
+    }
+
+    public User usdToPnl(String userName, BigDecimal amount) {
+        double price = 3.83;
+
+        return null;
+    }
+
     public User resetUser(String userName) {
         User user = userRepository.findByUserName(userName);
 
@@ -107,7 +121,6 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findByUserName(userName);
 
-
         return Optional.ofNullable(user)
                 .map(User::getAsset)
                 .stream()
@@ -158,9 +171,7 @@ public class UserServiceImpl implements UserService {
                 });
     }
 
-
-    @Override
-    public User subUserAsset(Asset ass, User user, BigDecimal amount, Currency currency) throws InsufficientFundsException {
+    private User subUserAsset(Asset ass, User user, BigDecimal amount, Currency currency) throws InsufficientFundsException {
         List<Asset> userAssets = user.getAsset();
 
         Asset a = user.getAsset().stream()

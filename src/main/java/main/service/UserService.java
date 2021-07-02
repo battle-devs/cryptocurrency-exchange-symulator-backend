@@ -52,6 +52,5 @@ public interface UserService {
 
     User resetUser(String userName);
 
-    User subUserAsset(Asset ass, User user, BigDecimal amount, Currency currency) throws InsufficientFundsException;
     User substractFromAsset(String userName, Currency currency, BigDecimal amount) throws InsufficientFundsException;
 }

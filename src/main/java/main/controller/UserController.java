@@ -13,6 +13,7 @@ import main.exception.DuplicateUsernameException;
 import main.dto.AuthenticationTransferObject;
 import main.dto.Credentials;
 import main.dto.UserPasswordChangeRequest;
+import main.exception.InsufficientFundsException;
 import main.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +58,17 @@ public class UserController {
         }
 
         return userService.resetUser(userName);
+    }
+
+    @PostMapping(value = "/substractAsset/{userName}/{amount}", consumes = "application/json", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Dodawanie hajsu userowi")
+    public User subMoney(@PathVariable String userName, @PathVariable BigDecimal amount, @RequestBody Currency currency) throws InsufficientFundsException {
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug(LocalDateTime.now() + " UserController: substracted " + amount + "  from, " + userName + " account");
+        }
+        return userService.substractFromAsset(userName, currency, amount);
     }
 
     @PostMapping(value = "/addAsset/{userName}/{amount}", consumes = "application/json", produces = "application/json")
