@@ -66,7 +66,7 @@ public class CryptowatServiceImpl implements CryptowatService {
                 .stream()
                 .map(key -> {
                     ResponseEntity<PriceRequestResult> response =
-                            restTemplate.getForEntity("https://api.cryptowat.ch/markets/bitbay" + currencies.get(key) + "/price?apikey=O2MKZGC55J0ZFB0O7AXN", PriceRequestResult.class);
+                            restTemplate.getForEntity("https://api.cryptowat.ch/markets/bitbay" + currencies.get(key) + "/price", PriceRequestResult.class);
                     currenciesResponse.put(key, Optional.ofNullable(response.getBody())
                             .map(PriceRequestResult::getResult)
                             .map(PriceResult::getPrice)
