@@ -3,13 +3,10 @@ package main.service.impl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
-import javax.naming.InsufficientResourcesException;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,18 +39,96 @@ public class UserServiceImpl implements UserService {
     private final CurrencyRepository currencyRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public User plnToUsd(String userName, BigDecimal amount) {
+    @Override
+    public User plnToUsd(String userName) {
         User user = userRepository.findByUserName(userName);
         double price = 3.83;
 
-        return null;
+        return Optional.ofNullable(user)
+                .map(x -> x.getAsset())
+                .stream()
+                .flatMap(assets -> assets.stream())
+                .filter(Objects::nonNull)
+                .filter(x -> x.getCurrency().getName().equals("PLN"))
+                .findFirst()
+                .map(x -> {
+                   return user.getAsset()
+                            .stream()
+                            .filter(Objects::nonNull)
+                            .filter(usd -> usd.getCurrency().getName().equals("USD"))
+                            .findAny()
+                            .map(o -> {
+                                user.getAsset().remove(o);
+                                Asset usdAsset = new Asset();
+                                Currency usdCurrency = new Currency();
+                                usdCurrency.setName("USD");
+                                usdAsset.setCurrency(usdCurrency);
+                                usdAsset.setAmount(x.getAmount().divide(BigDecimal.valueOf(price)));
 
+                                List<Asset> userAssets = user.getAsset();
+                                userAssets.add(usdAsset);
+                                user.setAsset(userAssets);
+                                return updateUser(user.getId(), user);
+                            })
+                            .orElseGet(() -> {
+                                Asset usdAsset = new Asset();
+                                Currency usdCurrency = new Currency();
+                                usdCurrency.setName("USD");
+                                usdAsset.setCurrency(usdCurrency);
+                                usdAsset.setAmount(x.getAmount().divide(BigDecimal.valueOf(price)));
+
+                                List<Asset> userAssets = user.getAsset();
+                                userAssets.add(usdAsset);
+                                user.setAsset(userAssets);
+                                return updateUser(user.getId(), user);
+                            });
+                }).orElse(user);
     }
 
-    public User usdToPnl(String userName, BigDecimal amount) {
+    @Override
+    public User usdToPln(String userName) {
+        User user = userRepository.findByUserName(userName);
         double price = 3.83;
 
-        return null;
+        return Optional.ofNullable(user)
+                .map(x -> x.getAsset())
+                .stream()
+                .flatMap(assets -> assets.stream())
+                .filter(Objects::nonNull)
+                .filter(x -> x.getCurrency().getName().equals("USD"))
+                .findFirst()
+                .map(x -> {
+                    return user.getAsset()
+                            .stream()
+                            .filter(Objects::nonNull)
+                            .filter(usd -> usd.getCurrency().getName().equals("PLN"))
+                            .findAny()
+                            .map(o -> {
+                                user.getAsset().remove(o);
+                                Asset usdAsset = new Asset();
+                                Currency usdCurrency = new Currency();
+                                usdCurrency.setName("PLN");
+                                usdAsset.setCurrency(usdCurrency);
+                                usdAsset.setAmount(x.getAmount().multiply(BigDecimal.valueOf(price)));
+
+                                List<Asset> userAssets = user.getAsset();
+                                userAssets.add(usdAsset);
+                                user.setAsset(userAssets);
+                                return updateUser(user.getId(), user);
+                            })
+                            .orElseGet(() -> {
+                                Asset usdAsset = new Asset();
+                                Currency usdCurrency = new Currency();
+                                usdCurrency.setName("PLN");
+                                usdAsset.setCurrency(usdCurrency);
+                                usdAsset.setAmount(x.getAmount().multiply(BigDecimal.valueOf(price)));
+
+                                List<Asset> userAssets = user.getAsset();
+                                userAssets.add(usdAsset);
+                                user.setAsset(userAssets);
+                                return updateUser(user.getId(), user);
+                            });
+                }).orElse(user);
     }
 
     public User resetUser(String userName) {
@@ -242,6 +317,18 @@ public class UserServiceImpl implements UserService {
                     "Wystąpił problem z aktualizowaniem użytkownika " + newUser.getUsername());
         }
         return user;
+    }
+
+    @Override
+    public String removeUser(String userName) {
+        User user = userRepository.findByUserName(userName);
+
+        return Optional.ofNullable(user)
+                .map(x -> {
+                    userRepository.delete(x);
+                    return "Deleted";
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "User " + userName + " does not exist"));
     }
 
     private void updateUserData(User user, User newUser) {
