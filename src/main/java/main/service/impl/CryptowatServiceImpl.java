@@ -42,7 +42,7 @@ public class CryptowatServiceImpl implements CryptowatService {
 
     @Override
     public AssetList getAssets() {
-        String url = "https://api.cryptowat.ch/assets";
+        String url = "https://api.cryptowat.ch/assets?apikey=O2MKZGC55J0ZFB0O7AXN";
         ResponseEntity<AssetList> response = restTemplate.getForEntity(url, AssetList.class);
         return response.getBody();
     }
@@ -66,7 +66,7 @@ public class CryptowatServiceImpl implements CryptowatService {
                 .stream()
                 .map(key -> {
                     ResponseEntity<PriceRequestResult> response =
-                            restTemplate.getForEntity("https://api.cryptowat.ch/markets/bitbay/" + currencies.get(key) + "/price", PriceRequestResult.class);
+                            restTemplate.getForEntity("https://api.cryptowat.ch/markets/bitbay" + currencies.get(key) + "/price?apikey=O2MKZGC55J0ZFB0O7AXN", PriceRequestResult.class);
                     currenciesResponse.put(key, Optional.ofNullable(response.getBody())
                             .map(PriceRequestResult::getResult)
                             .map(PriceResult::getPrice)
