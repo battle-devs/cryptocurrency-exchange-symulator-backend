@@ -66,6 +66,7 @@ public class UserServiceImpl implements UserService {
                     startPln.setName("PLN");
                     startPln.setDateOfPurchase(new Date());
                     startAsset.setAmount(new BigDecimal(10000));
+                    startAsset.setCurrency(startPln);
                     List<Asset> assets = new ArrayList<>();
                     assets.add(startAsset);
                     x.setAsset(assets);
@@ -215,6 +216,7 @@ public class UserServiceImpl implements UserService {
         Currency startPln = new Currency();
         startPln.setName("PLN");
         startPln.setDateOfPurchase(new Date());
+        startAsset.setCurrency(startPln);
         startAsset.setAmount(new BigDecimal(10000));
         List<Asset> assets = new ArrayList<>();
         assets.add(startAsset);
