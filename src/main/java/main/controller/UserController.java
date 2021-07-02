@@ -61,14 +61,14 @@ public class UserController {
         return userService.resetUser(userName);
     }
 
-    @PutMapping(value = "/usdToPln/{userName}", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/usdToPln/{userName}", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Zmiana na PLN")
     public User changeUsdToPln(@PathVariable String userName) {
         return userService.usdToPln(userName);
     }
 
-    @PutMapping(value = "/plnToUsd/{userName}", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/plnToUsd/{userName}", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Zmiana na USD")
     public User changePlnToUsd(@PathVariable String userName) {

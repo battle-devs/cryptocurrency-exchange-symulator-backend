@@ -1,6 +1,7 @@
 package main.service.impl;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -62,8 +63,9 @@ public class UserServiceImpl implements UserService {
                                 Asset usdAsset = new Asset();
                                 Currency usdCurrency = new Currency();
                                 usdCurrency.setName("USD");
+                                usdCurrency.setDateOfPurchase(new Date());
                                 usdAsset.setCurrency(usdCurrency);
-                                usdAsset.setAmount(x.getAmount().divide(BigDecimal.valueOf(price)));
+                                usdAsset.setAmount(x.getAmount().divide(BigDecimal.valueOf(price), 2, RoundingMode.DOWN));
 
                                 List<Asset> userAssets = user.getAsset();
                                 userAssets.add(usdAsset);
@@ -74,8 +76,9 @@ public class UserServiceImpl implements UserService {
                                 Asset usdAsset = new Asset();
                                 Currency usdCurrency = new Currency();
                                 usdCurrency.setName("USD");
+                                usdCurrency.setDateOfPurchase(new Date());
                                 usdAsset.setCurrency(usdCurrency);
-                                usdAsset.setAmount(x.getAmount().divide(BigDecimal.valueOf(price)));
+                                usdAsset.setAmount(x.getAmount().divide(BigDecimal.valueOf(price), 2, RoundingMode.DOWN));
 
                                 List<Asset> userAssets = user.getAsset();
                                 userAssets.add(usdAsset);
@@ -108,6 +111,7 @@ public class UserServiceImpl implements UserService {
                                 Asset usdAsset = new Asset();
                                 Currency usdCurrency = new Currency();
                                 usdCurrency.setName("PLN");
+                                usdCurrency.setDateOfPurchase(new Date());
                                 usdAsset.setCurrency(usdCurrency);
                                 usdAsset.setAmount(x.getAmount().multiply(BigDecimal.valueOf(price)));
 
@@ -120,6 +124,7 @@ public class UserServiceImpl implements UserService {
                                 Asset usdAsset = new Asset();
                                 Currency usdCurrency = new Currency();
                                 usdCurrency.setName("PLN");
+                                usdCurrency.setDateOfPurchase(new Date());
                                 usdAsset.setCurrency(usdCurrency);
                                 usdAsset.setAmount(x.getAmount().multiply(BigDecimal.valueOf(price)));
 
