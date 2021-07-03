@@ -86,68 +86,47 @@ W systemie będzie można zobaczyć aktualne notowania poszczególnych kryptowal
 
 | **ID** | 5 |
 | --- | --- |
-| **Nazwa** | Wyświetlanie kryptowalut z najwyższą wartością |
-| **Priorytet** | Średni |
-| **Rola** | Wszyscy |
-| **Opis** | Użytkownik może wyświetlić listę z dziesięcioma kryptowalutami o najwyższej wartości. |
-
-| **ID** | 6 |
-| --- | --- |
-| **Nazwa** | Wyświetlanie kryptowalut z najwyższym procentowym wzroście w ostatnim czasie |
-| **Priorytet** | Średni |
-| **Rola** | Wszyscy |
-| **Opis** | Użytkownik może wyświetlić listę z dziesięcioma kryptowalutami o najszybszym wzroście wartości w ostatnim czasie. |
-
-| **ID** | 7 |
-| --- | --- |
-| **Nazwa** | Wyświetlanie kryptowalut z najwyższym procentowym spadku w ostatnim czasie |
-| **Priorytet** | Średni |
-| **Rola** | Wszyscy |
-| **Opis** | Użytkownik może wyświetlić listę z dziesięcioma kryptowalutami o najszybszym spadku wartości w ostatnim czasie. |
-
-| **ID** | 8 |
-| --- | --- |
 | **Nazwa** | Zarządzanie profilem |
 | **Priorytet** | Średni |
 | **Rola** | Użytkownik zalogowany |
 | **Opis** | Użytkownik ma możliwość zmiany waluty, za którą kupuje kryptowaluty oraz zmiany hasła do konta |
 
-| **ID** | 9 |
+| **ID** | 6 |
 | --- | --- |
 | **Nazwa** | Resetowanie portfela |
 | **Priorytet** | Wysoki |
 | **Rola** | Użytkownik zalogowany |
 | **Opis** | Użytkownik ma możliwość zresetowania konta do stanu początkowego |
 
-| **ID** | 10 |
+| **ID** | 7 |
 | --- | --- |
 | **Nazwa** | Symulacja kupowania kryptowalut |
 | **Priorytet** | Wysoki |
 | **Rola** | Użytkownik zalogowany |
 | **Opis** | Użytkownik ma możliwość symulacji kupowania kryptowalut za pieniądze w wirtualnym portfelu |
 
-| **ID** | 11 |
+| **ID** | 8 |
 | --- | --- |
 | **Nazwa** | Symulacja sprzedawania kryptowalut |
 | **Priorytet** | Wysoki |
 | **Rola** | Użytkownik zalogowany |
 | **Opis** | Użytkownik ma możliwość symulacji sprzedawania kryptowalut za pieniądze w wirtualnym portfelu |
 
-| **ID** | 12 |
+| **ID** | 9 |
 | --- | --- |
 | **Nazwa** | Sprawdzanie stanu konta |
 | **Priorytet** | Wysoki |
 | **Rola** | Użytkownik zalogowany |
 | **Opis** | Użytkownik może sprawdzić ilość pieniędzy w wirtualnym portfelu |
 
-| **ID** | 13 |
+| **ID** | 10 |
 | --- | --- |
 | **Nazwa** | Sprawdzanie własnych kryptowalut |
 | **Priorytet** | Wysoki |
 | **Rola** | Użytkownik zalogowany |
 | **Opis** | Użytkownik może wyświetlić listę posiadanych kryptowalut |
 
-| **ID** | 14 |
+| **ID** | 11 |
 | --- | --- |
 | **Nazwa** | Usuwanie konta |
 | **Priorytet** | Wysoki |
