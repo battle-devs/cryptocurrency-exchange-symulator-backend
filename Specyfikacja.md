@@ -190,6 +190,6 @@ W systemie będzie można zobaczyć aktualne notowania poszczególnych kryptowal
 
 Ewelina Prochownik: wszystkie przypadki od strony wizualnej (front-end)
 
-Przemysław Krzempek: #1,#5,#6,#7,#8,#9
+Przemysław Krzempek: #1,#2,#5,#6,#7,#8,#9,#10,#11
 
-Michał Salamon: #2,#3,#4
+Michał Salamon: #2,#3,#4,#7,#8
