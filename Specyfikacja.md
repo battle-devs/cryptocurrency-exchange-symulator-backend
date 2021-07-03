@@ -154,13 +154,6 @@ W systemie będzie można zobaczyć aktualne notowania poszczególnych kryptowal
 | **Rola** | Użytkownik zalogowany |
 | **Opis** | Użytkownik może usunąć swoje konto |
 
-| **ID** | 15 |
-| --- | --- |
-| **Nazwa** | Dostęp do materiałów edukacyjnych |
-| **Priorytet** | Niski |
-| **Rola** | Wszyscy |
-| **Opis** | Użytkownik ma dostęp do materiałów edukacyjnych dotyczących obrotu aktywami oraz inwestowaniem |
-
 ### Model funkcyjny
 
 ![](images/Model_funkcyjny.png)
