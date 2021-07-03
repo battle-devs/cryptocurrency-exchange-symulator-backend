@@ -59,7 +59,11 @@ public class UserServiceImpl implements UserService {
                             .filter(usd -> usd.getCurrency().getName().equals("USD"))
                             .findAny()
                             .map(o -> {
-                                user.getAsset().remove(o);
+                                List<Asset> userAssets = user.getAsset();
+                                userAssets.remove(o);
+                                userAssets.remove(x);
+                                user.setAsset(userAssets);
+
                                 Asset usdAsset = new Asset();
                                 Currency usdCurrency = new Currency();
                                 usdCurrency.setName("USD");
@@ -67,12 +71,16 @@ public class UserServiceImpl implements UserService {
                                 usdAsset.setCurrency(usdCurrency);
                                 usdAsset.setAmount(x.getAmount().divide(BigDecimal.valueOf(price), 2, RoundingMode.DOWN));
 
-                                List<Asset> userAssets = user.getAsset();
+                                userAssets = user.getAsset();
                                 userAssets.add(usdAsset);
                                 user.setAsset(userAssets);
                                 return updateUser(user.getId(), user);
                             })
                             .orElseGet(() -> {
+                                List<Asset> userAssets = user.getAsset();
+                                userAssets.remove(x);
+                                user.setAsset(userAssets);
+
                                 Asset usdAsset = new Asset();
                                 Currency usdCurrency = new Currency();
                                 usdCurrency.setName("USD");
@@ -80,7 +88,7 @@ public class UserServiceImpl implements UserService {
                                 usdAsset.setCurrency(usdCurrency);
                                 usdAsset.setAmount(x.getAmount().divide(BigDecimal.valueOf(price), 2, RoundingMode.DOWN));
 
-                                List<Asset> userAssets = user.getAsset();
+                                userAssets = user.getAsset();
                                 userAssets.add(usdAsset);
                                 user.setAsset(userAssets);
                                 return updateUser(user.getId(), user);
@@ -107,7 +115,11 @@ public class UserServiceImpl implements UserService {
                             .filter(usd -> usd.getCurrency().getName().equals("PLN"))
                             .findAny()
                             .map(o -> {
-                                user.getAsset().remove(o);
+                                List<Asset> userAssets = user.getAsset();
+                                userAssets.remove(o);
+                                userAssets.remove(x);
+                                user.setAsset(userAssets);
+
                                 Asset usdAsset = new Asset();
                                 Currency usdCurrency = new Currency();
                                 usdCurrency.setName("PLN");
@@ -115,12 +127,16 @@ public class UserServiceImpl implements UserService {
                                 usdAsset.setCurrency(usdCurrency);
                                 usdAsset.setAmount(x.getAmount().multiply(BigDecimal.valueOf(price)));
 
-                                List<Asset> userAssets = user.getAsset();
+                                userAssets = user.getAsset();
                                 userAssets.add(usdAsset);
                                 user.setAsset(userAssets);
                                 return updateUser(user.getId(), user);
                             })
                             .orElseGet(() -> {
+                                List<Asset> userAssets = user.getAsset();
+                                userAssets.remove(x);
+                                user.setAsset(userAssets);
+
                                 Asset usdAsset = new Asset();
                                 Currency usdCurrency = new Currency();
                                 usdCurrency.setName("PLN");
@@ -128,7 +144,7 @@ public class UserServiceImpl implements UserService {
                                 usdAsset.setCurrency(usdCurrency);
                                 usdAsset.setAmount(x.getAmount().multiply(BigDecimal.valueOf(price)));
 
-                                List<Asset> userAssets = user.getAsset();
+                                userAssets = user.getAsset();
                                 userAssets.add(usdAsset);
                                 user.setAsset(userAssets);
                                 return updateUser(user.getId(), user);

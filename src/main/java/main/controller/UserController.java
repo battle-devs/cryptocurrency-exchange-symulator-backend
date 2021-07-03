@@ -127,7 +127,7 @@ public class UserController {
         return userService.updateUser(user.getId(), user);
     }
 
-    @DeleteMapping(value = "/removeUser/{userName}", consumes = "application/json", produces = "application/json")
+    @DeleteMapping(value = "/removeUser/{userName}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Usuwanie konta")
     public String removeUser(@PathVariable String userName) {
