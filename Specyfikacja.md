@@ -187,6 +187,9 @@ W systemie będzie można zobaczyć aktualne notowania poszczególnych kryptowal
 ![](images/Wersje.png)
 
 #8. Realizacje przypadków użycia:
+
 Ewelina Prochownik: wszystkie przypadki od strony wizualnej (front-end)
+
 Przemysław Krzempek: #1,#5,#6,#7,#8,#9
+
 Michał Salamon: #2,#3,#4
